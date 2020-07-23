@@ -1,0 +1,20 @@
+{
+  "name": "genderlab",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Angie Cortez Tay",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next --port 4000",
+    "build": "next build && next export",
+    "export": "next export",
+    "start": "next start"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "next": "^9.4.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "styled-components": "^5.1.1"
+  }
+}
