@@ -6,6 +6,7 @@ const InputWrapper = styled.input`
   border: 2px solid lightgray;
   width: 100%;
   padding: 10px;
+  height: 50px;
   border-radius: 5px;
   outline: none;
   &:active,
@@ -24,6 +25,7 @@ const Input = ({ value, onChange, onKeyPress }) => (
     autoComplete="off"
   />
 );
+
 Input.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,

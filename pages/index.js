@@ -1,55 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import styled from 'styled-components';
 
 import { getUserByName, getRepoByName, usersss } from '../services/index';
 import useDebounce from '../hocs/debounce';
 import Layout from '../components/templates/Layout';
 import Input from '../components/atoms/Input';
+import Card from '../components/atoms/Card';
 
-const A = styled.a`
-  color: #0366d6;
-  text-decoration: none;
-`;
 const index = () => {
   const [user, setUser] = useState('angiecortez');
-  const [users, setUsers] = useState([]);
   const [ar, setAr] = useState([]);
   const [loading, setLoading] = useState(false);
   const debouncedSearchTerm = useDebounce(user, 1000);
+  // const angie = await getRepoByName('angiecortez');
+
+  // useEffect(() => {
+  //   const results = ar.filter((person) => person.toLowerCase().includes(user));
+  //   setAr(results);
+  // }, [user]);
 
   const onChangeUser = (e) => setUser(e.target.value);
 
-  // useEffect(() => {
-  //   if (debouncedSearchTerm) {
-  //     handleInputKeyPress();
-  //   }
-  // }, [debouncedSearchTerm]);
-
-  const getUsers = async (user) => {
+  const getUsers = async () => {
     setLoading(true);
-
     try {
       const userGit = await getUserByName(debouncedSearchTerm);
-      setUsers([...userGit]);
-      // const angie = await getRepoByName('angiecortez');
-
-      userGit.map(async (user) => {
-        const t = await usersss(user.login);
-        console.log('t', t);
+      userGit.map(async (u) => {
+        const t = await usersss(u.login);
         ar.push(t);
         setAr([...ar]);
-        setLoading(false);
       });
+      setLoading(false);
     } catch (e) {
       console.log(e);
     }
   };
 
-  const handleInputKeyPress = (e) => {
+  const handleInputKeyPress = async (e) => {
     if (e.key === 'Enter' && user !== '') {
-      setUsers([]);
-      getUsers(user);
+      setAr([]);
+      await getUsers();
     }
   };
 
@@ -61,7 +50,7 @@ const index = () => {
         onKeyPress={(e) => handleInputKeyPress(e)}
       />
 
-      {!users.length ? (
+      {loading ? (
         <div>no hay usuarios</div>
       ) : (
         <div
@@ -71,32 +60,7 @@ const index = () => {
             gridGap: '1rem'
           }}
         >
-          {!loading &&
-            ar.map((user, i) => (
-              <div
-                key={i}
-                style={{
-                  display: 'flex',
-                  padding: '24px 0',
-                  borderTop: '1px solid #e1e4e8'
-                }}
-              >
-                <img
-                  src={user.avatar_url}
-                  alt=""
-                  width={30}
-                  height={30}
-                  style={{ borderRadius: '50%', margin: '0 8px' }}
-                />
-                <div style={{ flex: 'auto' }}>
-                  <div style={{ display: 'flex' }}>
-                    <A href={''}>{user.login}</A>
-                    <div style={{ margin: '0 8px' }}>{user.bio}</div>
-                  </div>
-                  <p>Front-End Developer</p>
-                </div>
-              </div>
-            ))}
+          {!loading && ar.map((user, i) => <Card key={i} data={user} />)}
         </div>
       )}
     </Layout>
