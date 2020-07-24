@@ -1,43 +1,44 @@
 import React, { useState, useEffect } from 'react';
 
-import { getUserByName, getRepoByName, usersss } from '../services/index';
-import useDebounce from '../hocs/debounce';
+import { getUserByName, usersss } from '../services/index';
 import Layout from '../components/templates/Layout';
 import Input from '../components/atoms/Input';
 import Card from '../components/atoms/Card';
 
 const index = () => {
   const [user, setUser] = useState('angiecortez');
-  const [ar, setAr] = useState([]);
+  const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const debouncedSearchTerm = useDebounce(user, 1000);
-  // const angie = await getRepoByName('angiecortez');
-
-  // useEffect(() => {
-  //   const results = ar.filter((person) => person.toLowerCase().includes(user));
-  //   setAr(results);
-  // }, [user]);
 
   const onChangeUser = (e) => setUser(e.target.value);
 
   const getUsers = async () => {
-    setLoading(true);
     try {
-      const userGit = await getUserByName(debouncedSearchTerm);
-      userGit.map(async (u) => {
-        const t = await usersss(u.login);
-        ar.push(t);
-        setAr([...ar]);
-      });
+      const userGit = await getUserByName(user);
+
+      const items = [];
+      for (const usr of userGit) {
+        try {
+          const item = await usersss(usr.login);
+          items.push(item.data);
+        } catch (e) {
+          console.warn(e);
+        }
+      }
+
+      setResults(items);
       setLoading(false);
     } catch (e) {
-      console.log(e);
+      console.warn(e);
     }
   };
 
+  useEffect(() => {}, [results]);
+
   const handleInputKeyPress = async (e) => {
     if (e.key === 'Enter' && user !== '') {
-      setAr([]);
+      setResults([]);
+      setLoading(true);
       await getUsers();
     }
   };
@@ -60,7 +61,7 @@ const index = () => {
             gridGap: '1rem'
           }}
         >
-          {!loading && ar.map((user, i) => <Card key={i} data={user} />)}
+          {!loading && results.map((u, i) => <Card key={i} data={u} />)}
         </div>
       )}
     </Layout>

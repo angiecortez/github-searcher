@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Link from 'next/link';
 
 const Wrapper = styled.div`
   background: #ffffff;
@@ -30,7 +31,10 @@ const Card = ({ data }) => {
       <Img src={data.avatar_url} />
       <div style={{ flex: 'auto' }}>
         <Flex>
-          <A href={''}>{data.name}</A>
+          <Link href="[user]" as={`${data.login}`}>
+            <A href={''}>{data.name}</A>
+          </Link>
+
           <div style={{ margin: '0 8px' }}>{data.login}</div>
         </Flex>
       </div>
