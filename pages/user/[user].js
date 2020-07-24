@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import colorsJson from '../utils/colors.json';
-import { getRepoByName, usersss, getRepo } from '../services';
-import ProfileCard from '../components/organisms/ProfileCard';
-import RepoCard from '../components/organisms/RepoCard';
-import { Grid, GridUser } from '../components/atoms/Grid';
+import colorsJson from '../../utils/colors.json';
+import { getRepoByName, usersss, getRepo } from '../../services';
+import ProfileCard from '../../components/organisms/ProfileCard';
+import RepoCard from '../../components/organisms/RepoCard';
+import { Grid, GridUser } from '../../components/atoms/Grid';
 import DefaultError from 'next/error';
-import Header from '../components/organisms/Header';
-import SoundBarLoading from '../components/atoms/SoundBarLoading';
+import Header from '../../components/organisms/Header';
+import SoundBarLoading from '../../components/atoms/SoundBarLoading';
 
 const User = () => {
   const [repos, setRepos] = useState([]);

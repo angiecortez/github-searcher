@@ -28,3 +28,4 @@ yarn.lock
 
 # dotenv environment variables file
 .env
+out/

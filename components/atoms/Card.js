@@ -1,11 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Link from 'next/link';
 
 const Wrapper = styled.div`
   background: #ffffff;
-  /* box-shadow: 0px 0px 10px 0px RGBA(86, 96, 128, 0.3); */
   padding: 20px;
   display: flex;
   border-top: 1px solid #e1e4e8;
@@ -27,13 +25,14 @@ const A = styled.a`
   color: #0366d6;
   text-decoration: none;
 `;
+
 const Card = ({ data }) => {
   return (
     <Wrapper>
       <Img src={data.avatar_url} />
       <div style={{ flex: 'auto' }}>
         <Flex>
-          <Link href="[user]" as={`${data.login}`}>
+          <Link href="/user/[user]" as={`/user/${data.login}`}>
             <A href={''}>{data.name}</A>
           </Link>
 
@@ -44,7 +43,5 @@ const Card = ({ data }) => {
     </Wrapper>
   );
 };
-
-Card.propTypes = {};
 
 export default Card;

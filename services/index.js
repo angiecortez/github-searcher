@@ -20,7 +20,7 @@ export const getUserByName = async (name) => {
 export const getRepoByName = async (name) => {
   let data;
   await axios
-    .get(`https://api.github.com/users/${name}/repos`, { headers })
+    .get(`https://api.github.com/users/${name}/repos?per_page=10`, { headers })
     .then((response) => {
       data = response;
     });
