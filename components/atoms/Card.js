@@ -5,9 +5,11 @@ import Link from 'next/link';
 
 const Wrapper = styled.div`
   background: #ffffff;
-  box-shadow: 0px 0px 10px 0px RGBA(86, 96, 128, 0.3);
+  /* box-shadow: 0px 0px 10px 0px RGBA(86, 96, 128, 0.3); */
   padding: 20px;
   display: flex;
+  border-top: 1px solid #e1e4e8;
+  align-items: center;
 `;
 
 const Img = styled.img`
@@ -37,6 +39,7 @@ const Card = ({ data }) => {
 
           <div style={{ margin: '0 8px' }}>{data.login}</div>
         </Flex>
+        <p>{data.bio}</p>
       </div>
     </Wrapper>
   );

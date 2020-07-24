@@ -3,15 +3,22 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const InputWrapper = styled.input`
-  border: 2px solid lightgray;
-  width: 100%;
+  border: none;
+  width: 270px;
   padding: 10px;
-  height: 50px;
+  height: 30px;
   border-radius: 5px;
   outline: none;
+  background: hsla(0, 0%, 100%, 0.125);
+  color: #fff;
+  margin: 0 10px;
   &:active,
   &:focus {
-    border: 2px solid pink;
+    background-color: #ffffff;
+    color: #24292e;
+    box-shadow: none;
+    transition: 0.1s ease-in-out;
+    width: 500px;
   }
 `;
 

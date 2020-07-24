@@ -2,8 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const Img = styled.img`
   border-radius: 50%;
+  max-width: 90%;
 `;
 
 const Name = styled.div`
@@ -17,12 +24,12 @@ const SubName = styled.div`
   color: #666;
 `;
 const ProfileCard = ({ data }) => (
-  <div style={{ padding: '20px' }}>
+  <Wrapper style={{ padding: '20px' }}>
     <Img src={data.avatar_url} alt="" />
     <Name>{data.name}</Name>
     <SubName>{data.login}</SubName>
     <p style={{ padding: '20px 0' }}>{data.bio}</p>
-  </div>
+  </Wrapper>
 );
 
 ProfileCard.propTypes = {

@@ -25,3 +25,6 @@ node_modules/
 # Yarn
 yarn-error.log
 yarn.lock
+
+# dotenv environment variables file
+.env

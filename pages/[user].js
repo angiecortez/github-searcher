@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
+
 import colorsJson from '../utils/colors.json';
 import { getRepoByName, usersss, getRepo } from '../services';
 import ProfileCard from '../components/organisms/ProfileCard';
 import RepoCard from '../components/organisms/RepoCard';
+import { Grid } from '../components/atoms/Grid';
+import DefaultError from 'next/error';
+import Header from '../components/organisms/Header';
+import SoundBarLoading from '../components/atoms/SoundBarLoading';
 
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-gap: 1rem;
-  padding: 20px;
-`;
 const User = () => {
   const [repos, setRepos] = useState([]);
   const [colors, setColors] = useState(colorsJson);
-  const [user, setUser] = useState({});
+  const [userDa, setUserDa] = useState({});
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   const router = useRouter();
   const id = router.query.user;
 
-  console.log('id', id);
   useEffect(() => {
-    getReposFromUser(id);
+    if (id !== undefined) {
+      getReposFromUser(id);
+    }
   }, [id]);
 
   const getReposFromUser = async (userId) => {
@@ -39,36 +39,40 @@ const User = () => {
           try {
             const rep = await getRepo(userId, repo.name);
             items.push(rep.data);
-            console.log('eee', rep.data);
           } catch (e) {
             console.log(e);
           }
         }
         setLoading(false);
         setRepos(items);
-        setUser(userData.data);
+        setUserDa(userData.data);
       }
     } catch (e) {
+      setError(true);
       console.warn(e);
     }
   };
 
-  if (loading) return <div>cargando</div>;
+  if (error) return <DefaultError statusCode={404} />;
+  else if (loading) return <SoundBarLoading />;
   return (
-    <Grid>
-      <ProfileCard data={user} />
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gridGap: '1rem'
-        }}
-      >
-        {repos.map((repo, i) => (
-          <RepoCard key={i} data={repo} colors={colors} />
-        ))}
-      </div>
-    </Grid>
+    <>
+      <Header input={true} />
+      <Grid>
+        <ProfileCard data={userDa} />
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gridGap: '1rem'
+          }}
+        >
+          {repos.map((repo, i) => (
+            <RepoCard key={i} data={repo} colors={colors} />
+          ))}
+        </div>
+      </Grid>
+    </>
   );
 };
 

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 import { getUserByName, usersss } from '../services/index';
 import Layout from '../components/templates/Layout';
-import Input from '../components/atoms/Input';
 import Card from '../components/atoms/Card';
+import Header from '../components/organisms/Header';
+import Empty from '../components/atoms/Empty';
+import SoundBarLoading from '../components/atoms/SoundBarLoading';
 
 const index = () => {
   const [user, setUser] = useState('angiecortez');
@@ -15,7 +17,6 @@ const index = () => {
   const getUsers = async () => {
     try {
       const userGit = await getUserByName(user);
-
       const items = [];
       for (const usr of userGit) {
         try {
@@ -25,7 +26,6 @@ const index = () => {
           console.warn(e);
         }
       }
-
       setResults(items);
       setLoading(false);
     } catch (e) {
@@ -43,24 +43,19 @@ const index = () => {
     }
   };
 
+  if (loading) return <SoundBarLoading />;
   return (
     <Layout>
-      <Input
+      <Header
         value={user}
         onChange={(e) => onChangeUser(e)}
         onKeyPress={(e) => handleInputKeyPress(e)}
       />
 
-      {loading ? (
-        <div>no hay usuarios</div>
+      {!results.length ? (
+        <Empty>Busca a millones de usuarios</Empty>
       ) : (
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gridGap: '1rem'
-          }}
-        >
+        <div>
           {!loading && results.map((u, i) => <Card key={i} data={u} />)}
         </div>
       )}

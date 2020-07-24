@@ -22,6 +22,7 @@ const Wrapper = styled.div`
     }
   }
 `;
+
 const A = styled.a`
   color: #0366d6;
   text-decoration: none;
