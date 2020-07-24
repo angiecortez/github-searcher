@@ -45,7 +45,7 @@ const index = () => {
 
   if (loading) return <SoundBarLoading />;
   return (
-    <Layout>
+    <>
       <Header
         value={user}
         onChange={(e) => onChangeUser(e)}
@@ -59,7 +59,7 @@ const index = () => {
           {!loading && results.map((u, i) => <Card key={i} data={u} />)}
         </div>
       )}
-    </Layout>
+    </>
   );
 };
 

@@ -5,7 +5,7 @@ import colorsJson from '../utils/colors.json';
 import { getRepoByName, usersss, getRepo } from '../services';
 import ProfileCard from '../components/organisms/ProfileCard';
 import RepoCard from '../components/organisms/RepoCard';
-import { Grid } from '../components/atoms/Grid';
+import { Grid, GridUser } from '../components/atoms/Grid';
 import DefaultError from 'next/error';
 import Header from '../components/organisms/Header';
 import SoundBarLoading from '../components/atoms/SoundBarLoading';
@@ -60,17 +60,11 @@ const User = () => {
       <Header input={true} />
       <Grid>
         <ProfileCard data={userDa} />
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gridGap: '1rem'
-          }}
-        >
+        <GridUser>
           {repos.map((repo, i) => (
             <RepoCard key={i} data={repo} colors={colors} />
           ))}
-        </div>
+        </GridUser>
       </Grid>
     </>
   );

@@ -104,7 +104,7 @@ body {
 	font-size: 16px;
 	margin: 0;
 	padding: 0;
-	font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+	font-family: 'Exo', sans-serif;
 	line-height: 1.5;
 	color: #24292e;
 	background-color: #fff;
