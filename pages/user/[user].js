@@ -10,21 +10,23 @@ import DefaultError from 'next/error';
 import Header from '../../components/organisms/Header';
 import SoundBarLoading from '../../components/atoms/SoundBarLoading';
 
-const User = () => {
+export async function getServerSideProps({ query }) {
+  const { user } = query;
+  return { props: { user } };
+}
+
+const User = ({ user = {} }) => {
   const [repos, setRepos] = useState([]);
   const [colors, setColors] = useState(colorsJson);
   const [userDa, setUserDa] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  const router = useRouter();
-  const id = router.query.user;
-
   useEffect(() => {
-    if (id !== undefined) {
-      getReposFromUser(id);
+    if (user !== undefined) {
+      getReposFromUser(user);
     }
-  }, [id]);
+  }, [user]);
 
   const getReposFromUser = async (userId) => {
     setLoading(true);
