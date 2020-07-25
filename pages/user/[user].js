@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import colorsJson from '../../utils/colors.json';
 import { getRepoByName, usersss, getRepo } from '../../services';
@@ -9,12 +10,20 @@ import DefaultError from 'next/error';
 import Header from '../../components/organisms/Header';
 import SoundBarLoading from '../../components/atoms/SoundBarLoading';
 
+// export async function getServerSideProps({ query }) {
+//   const { user } = query;
+//   return { props: { user } };
+// }
+
 const User = (req, res) => {
   const [repos, setRepos] = useState([]);
   const [colors, setColors] = useState(colorsJson);
   const [userDa, setUserDa] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+
+  const router = useRouter();
+  const id = router.query.user;
 
   useEffect(() => {
     if (req.user !== undefined) {
