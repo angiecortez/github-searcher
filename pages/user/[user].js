@@ -10,6 +10,13 @@ import DefaultError from 'next/error';
 import Header from '../../components/organisms/Header';
 import SoundBarLoading from '../../components/atoms/SoundBarLoading';
 
+// export async function getServerSideProps({ query }) {
+//   const { user } = query;
+//   // const res = await fetch(`https://rickandmortyapi.com/api/character/${id}`);
+//   // const data = await res.json();
+//   return { props: { user } };
+// }
+
 const User = ({ user = {} }) => {
   const [repos, setRepos] = useState([]);
   const [colors, setColors] = useState(colorsJson);
@@ -17,11 +24,14 @@ const User = ({ user = {} }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
+  const router = useRouter();
+  const id = router.query.user;
+
   useEffect(() => {
-    if (user !== undefined) {
-      getReposFromUser(user);
+    if (id !== undefined) {
+      getReposFromUser(id);
     }
-  }, [user]);
+  }, [id]);
 
   const getReposFromUser = async (userId) => {
     setLoading(true);
@@ -66,10 +76,5 @@ const User = ({ user = {} }) => {
     </>
   );
 };
-
-export async function getServerSideProps({ query }) {
-  const { user } = query;
-  return { props: { user } };
-}
 
 export default User;
