@@ -10,13 +10,13 @@ import DefaultError from 'next/error';
 import Header from '../../components/organisms/Header';
 import SoundBarLoading from '../../components/atoms/SoundBarLoading';
 
-export const getServerSideProps = async ({ query }) => {
-  const { user } = query;
-  return { props: { user } };
-};
+// export const getServerSideProps = async ({ query }) => {
+//   const { user } = query;
+//   return { props: { user } };
+// };
 
-const User = ({ user }) => {
-  console.log('user', user);
+const User = () => {
+  // console.log('user', user);
   const [repos, setRepos] = useState([]);
   const [colors, setColors] = useState(colorsJson);
   const [userDa, setUserDa] = useState({});
