@@ -10,11 +10,6 @@ import DefaultError from 'next/error';
 import Header from '../../components/organisms/Header';
 import SoundBarLoading from '../../components/atoms/SoundBarLoading';
 
-export async function getServerSideProps({ query }) {
-  const { user } = query;
-  return { props: { user } };
-}
-
 const User = ({ user = {} }) => {
   const [repos, setRepos] = useState([]);
   const [colors, setColors] = useState(colorsJson);
@@ -71,5 +66,10 @@ const User = ({ user = {} }) => {
     </>
   );
 };
+
+export async function getServerSideProps({ query }) {
+  const { user } = query;
+  return { props: { user } };
+}
 
 export default User;
