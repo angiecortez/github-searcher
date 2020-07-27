@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "next --port 4000",
-    "build": "next build && next export",
+    "build": "next build",
     "export": "next export",
     "start": "next start"
   },
